@@ -16,8 +16,25 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+  
   registerEvents() {
-    /*
+      document.addEventListener('keyup', (event) => {
+
+        if ((event.key == 'Shift') || (event.key == 'Alt') || (event.key == 'Ctrl')) {
+          return;
+        }
+
+        if (event.key.toLowerCase() == this.currentSymbol.innerText.toLowerCase()) {
+          this.success();
+        } else {
+          this.fail();
+        }
+        
+      });
+  };
+
+
+      /*
       TODO:
       Написать обработчик события, который откликается
       на каждый введённый символ.
@@ -25,7 +42,7 @@ class Game {
       При неправильном вводе символа - this.fail();
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
-  }
+  
 
   success() {
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
