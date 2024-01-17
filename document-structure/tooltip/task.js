@@ -8,7 +8,13 @@ for (const hint of hints) {
     hint.addEventListener('click', (event) => {
         const text = event.currentTarget;   
         
-        if (!tip.classList.contains('tooltip_active')) tip.classList.add('tooltip_active');       
+        if (!tip.classList.contains('tooltip_active')) {
+            tip.classList.add('tooltip_active');
+        } else if (tip.innerHTML == text.title) {
+            tip.classList.remove('tooltip_active');
+            return;
+        }
+               
         tip.innerHTML = text.title; //отправка в подсказку строки
 
         let tarRect = text.getBoundingClientRect(); // координаты HTML-элемента
