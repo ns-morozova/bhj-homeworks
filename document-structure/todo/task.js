@@ -2,15 +2,11 @@ const btnTaskAdd = document.getElementById('tasks__add');
 const taskInput = document.getElementById('task__input');
 const tasksList = document.getElementById('tasks__list');
 
-function RemoveTask (event) {
-    let id = event.currentTarget.dataset.id;
-    const tasks = document.getElementsByClassName('task');
-
-    for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].dataset.id == id) {
-            tasksList.removeChild(tasks[i]);
-        }
+function removeTask (event) {
+    if (!event.target.classList.contains ('task__remove')) {
+        return;
     }
+    tasksList.removeChild(event.currentTarget);
 }
 
 let counter = 1;
@@ -30,7 +26,7 @@ btnTaskAdd.addEventListener('click', (event) => {
     remove.setAttribute('data-id', counter.toString());
     task.appendChild(remove);
 
-    remove.addEventListener('click', RemoveTask);
+    task.addEventListener('click', removeTask);
 
     
     taskTitle.innerHTML = taskInput.value;
