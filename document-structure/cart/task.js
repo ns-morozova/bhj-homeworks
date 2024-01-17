@@ -1,5 +1,6 @@
 const products = document.getElementsByClassName('product');
 
+
 for (const product of products) {
     product.addEventListener('click', (event) => {
         const currentTarget = event.currentTarget;
@@ -8,24 +9,23 @@ for (const product of products) {
             productValue.innerText ++;
         } else if (event.target.classList.contains('product__quantity-control_dec')) {
             productValue.innerText --;
-            if (productValue.innerText == '0') productValue.innerText = '1';
+            if (productValue.innerText == '0') {
+                productValue.innerText = '1';
+            }
         } else if (event.target.classList.contains('product__add')) {
             let id = currentTarget.dataset.id;
-           
-            const cartProducts = document.getElementsByClassName('cart__product');
+            const cartProducts = Array.from(document.getElementsByClassName('cart__product'));
 
-            let n = -1;
-
-            for (let i = 0; i < cartProducts.length; i ++) {
-                const cartProduct = cartProducts[i];
-                if (cartProduct.dataset.id == id) {
-                    n = i;
+            const cartProduct = cartProducts.find((element) => {
+                if (element.dataset.id == id) {
+                    return element;
+                } else {
+                    return undefined;
                 }
-            }
+            });
 
 
-
-            if (n == -1) {
+            if (cartProduct == undefined) {
                 const image = currentTarget.querySelector('.product__image');
 
                 const cartProduct = document.createElement('div'); //карточка корзины
@@ -48,7 +48,6 @@ for (const product of products) {
                 basket.appendChild(cartProduct);
 
             } else {
-                const cartProduct = cartProducts[n];
                 const count = cartProduct.querySelector('.cart__product-count');
                 let oldCount = Number(count.textContent);
                 count.textContent = (oldCount + Number(productValue.textContent)).toString();
