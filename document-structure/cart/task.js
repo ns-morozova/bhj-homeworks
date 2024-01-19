@@ -16,36 +16,18 @@ for (const product of products) {
             let id = currentTarget.dataset.id;
             const cartProducts = Array.from(document.getElementsByClassName('cart__product'));
 
-            const cartProduct = cartProducts.find((element) => {
-                if (element.dataset.id == id) {
-                    return element;
-                } else {
-                    return undefined;
-                }
-            });
+            const cartProduct = cartProducts.find(element => element.dataset.id == id);
 
 
             if (cartProduct == undefined) {
-                const image = currentTarget.querySelector('.product__image');
-
-                const cartProduct = document.createElement('div'); //карточка корзины
-                cartProduct.className = 'cart__product';
-
-                const img = document.createElement('img');
-                img.className = 'cart__product-image';
-                img.setAttribute('src', image.src);
-
-                cartProduct.appendChild(img);
-
-                const count = document.createElement('div');
-                count.className = 'cart__product-count';
-                count.textContent = currentTarget.querySelector('.product__quantity-value').outerText;
-
-                cartProduct.appendChild(count);
-                cartProduct.setAttribute('data-id', id);
-
                 const basket = document.querySelector('.cart__products');
-                basket.appendChild(cartProduct);
+
+                basket.insertAdjacentHTML('afterbegin', `
+                    <div class="cart__product" data-id=${id}>
+                        <img class="cart__product-image" src=${currentTarget.querySelector('.product__image').src}>
+                        <div class="cart__product-count">${currentTarget.querySelector('.product__quantity-value').outerText}</div>
+                    </div>
+                `);
 
             } else {
                 const count = cartProduct.querySelector('.cart__product-count');
