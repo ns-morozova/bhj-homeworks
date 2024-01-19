@@ -6,6 +6,7 @@ document.body.appendChild(tip);
 
 for (const hint of hints) {
     hint.addEventListener('click', (event) => {
+        event.preventDefault();  //отключаем обновление страницы
         const text = event.currentTarget;   
         
         if (!tip.classList.contains('tooltip_active')) {
@@ -25,8 +26,6 @@ for (const hint of hints) {
     
         tip.style.left = x + "px";                 // перемещаем подсказку
         tip.style.top = y + "px";                  // в нужное место
-
-        event.preventDefault();  //отключаем обновление страницы
     })
     
 }
